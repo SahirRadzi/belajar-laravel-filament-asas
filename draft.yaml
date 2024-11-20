@@ -1,2 +1,17 @@
 models:
-
+  Employee:
+    name: string
+    email: string unique
+    phone_number: string
+    date_of_birth: date
+    gender: enum:male,female
+    ic: string unique
+    position: string
+    department: string
+    is_active: boolean default:true
+    address: text nullable
+    postcode: string nullable max:5
+    city: string nullable
+    state: string nullable
+    info: text nullable
+    image: string nullable
