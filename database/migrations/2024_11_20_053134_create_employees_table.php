@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('department');
             $table->boolean('is_active')->default(true);
             $table->text('address')->nullable();
-            $table->string('postcode')->nullable();
+            $table->integer('postcode')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
             $table->text('info')->nullable();

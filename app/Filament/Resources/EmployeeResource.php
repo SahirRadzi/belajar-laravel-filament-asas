@@ -2,16 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EmployeeResource\Pages;
-use App\Filament\Resources\EmployeeResource\RelationManagers;
-use App\Models\Employee;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Employee;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\EmployeeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\EmployeeResource\RelationManagers;
 
 class EmployeeResource extends Resource
 {
@@ -31,28 +31,47 @@ class EmployeeResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('phone_number')
-                    ->tel()
+                    ->numeric()
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(12),
                 Forms\Components\DatePicker::make('date_of_birth')
                     ->required(),
-                Forms\Components\TextInput::make('gender')
+                Forms\Components\Select::make('gender')
+                    ->options([
+                        'male' => 'male',
+                        'female' => 'female',
+                    ])
                     ->required(),
                 Forms\Components\TextInput::make('ic')
+                    ->label('Identity Card No.')
+                    ->numeric()
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('position')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('department')
-                    ->required()
-                    ->maxLength(255),
+                    ->minLength(12)
+                    ->maxLength(12),
+                Forms\Components\Select::make('position')
+                    ->options([
+                        'manager' => 'manager',
+                        'developer' => 'developer',
+                    ])
+                    ->required(),
+                Forms\Components\Select::make('department')
+                    ->options([
+                        'IT' => 'IT',
+                        'Management' => 'Management',
+                    ])
+                    ->required(),
                 Forms\Components\Toggle::make('is_active')
+                    ->inline(false)
+                    ->onColor('success')
+                    ->offColor('danger')
                     ->required(),
                 Forms\Components\Textarea::make('address')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('postcode')
-                    ->maxLength(255),
+                    ->numeric()
+                    ->required()
+                    ->minLength(4)
+                    ->maxLength(5),
                 Forms\Components\TextInput::make('city')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('state')
@@ -75,7 +94,7 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('date_of_birth')
-                    ->date()
+                    ->date('d-m-Y')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('gender'),
                 Tables\Columns\TextColumn::make('ic')
