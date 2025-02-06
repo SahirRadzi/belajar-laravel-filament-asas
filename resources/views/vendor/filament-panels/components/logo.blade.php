@@ -1,5 +1,5 @@
 <h1 class="fi-header-heading text-2xl font-bold dark:text-white">
-    Laravel
+    Laravel Asas
 </h1>
 
 {{-- img logo from public/images --}}
